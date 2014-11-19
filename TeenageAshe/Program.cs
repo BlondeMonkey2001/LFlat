@@ -17,7 +17,7 @@ namespace TeenageAshe
         private static readonly Spell[] SpellArray = new Spell[4];
 
         private static Obj_AI_Hero player;
-        private static Orbwalking.Orbwalker orbwalker;
+        //private static Orbwalking.Orbwalker orbwalker;
         private static Spell q, w, e, r;
         private static Menu config;
 
