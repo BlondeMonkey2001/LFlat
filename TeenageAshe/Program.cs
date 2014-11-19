@@ -60,9 +60,12 @@ namespace TeenageAshe
             //the last valee determine if this is a root menu
             config = new Menu("Teenage Ashe", "TeenAshe", true);
             Game.PrintChat("Message 5");
-            config.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
+            //config.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
             Game.PrintChat("Message 6");
-            orbwalker = new Orbwalking.Orbwalker(config.SubMenu("Orbwalking"));
+            var orbwalkerMenu = new Menu("Orbwalking", "Orbwalking");
+            orbwalker = new Orbwalking.Orbwalker(orbwalkerMenu);
+            config.AddSubMenu(orbwalkerMenu);
+            //orbwalker = new Orbwalking.Orbwalker(config.SubMenu("Orbwalking"));
             Game.PrintChat("Message 7");
             config.AddSubMenu(new Menu("Combo", "Combo"));
             Game.PrintChat("Message 8");
