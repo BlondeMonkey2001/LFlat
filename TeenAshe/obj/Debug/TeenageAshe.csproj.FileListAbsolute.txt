@@ -1,0 +1,16 @@
+C:\Users\Gwyrion\documents\visual studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\QueenAshe.exe.config
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\QueenAshe.exe.manifest
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\QueenAshe.application
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\QueenAshe.exe
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\QueenAshe.pdb
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\GitHubPushLib.dll
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\LeagueSharp.Common.dll
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\LeagueSharp.dll
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\SharpDX.dll
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\bin\Release\LeagueSharp.xml
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\obj\Debug\TeenageAshe.csprojResolveAssemblyReference.cache
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\obj\Debug\QueenAshe.exe.manifest
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\obj\Debug\QueenAshe.application
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\obj\Debug\QueenAshe.exe
+C:\Users\Gwyrion\Documents\Visual Studio 2013\Projects\QueenAshe\QueenAshe\obj\Debug\QueenAshe.pdb
