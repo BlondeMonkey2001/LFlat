@@ -138,7 +138,10 @@ namespace TeenageAshe
             catch(Exception ex)
             {
                 Console.WriteLine("An Exception has ocurred: ");
+                Console.WriteLine(ex.GetType() + ":");
                 Console.WriteLine(ex.Message);
+
+                Console.WriteLine("\n + Trace:\n" + ex.StackTrace);
             }
         }
 
