@@ -120,7 +120,7 @@ namespace TeenageAshe
 
                 Menu targetSelectorMenu = new Menu("Target Selector", "Target Selector");
                 SimpleTs.AddToMenu(targetSelectorMenu);
-                Config.AddSubMenu(targetSelectorMenu);
+                config.AddSubMenu(targetSelectorMenu);
 
                 Game.PrintChat("Message 10");
                 //this step adds the menu of our mod to the main L# menu
