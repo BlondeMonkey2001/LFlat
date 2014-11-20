@@ -35,87 +35,110 @@ namespace TeenageAshe
 
         private static void Game_OnGameLoad(EventArgs args)
         {
-            if (ObjectManager.Player.BaseSkinName != ChampionName)
+            try
             {
-                return;
+                if (ObjectManager.Player.BaseSkinName != ChampionName)
+                {
+                    return;
+                }
+
+                player = ObjectManager.Player;
+
+                Game.PrintChat("TenageAshe[0]: Loading started");
+
+                //set ranges
+                q = new Spell(SpellSlot.Q);
+                w = new Spell(SpellSlot.W, 1200);
+                e = new Spell(SpellSlot.E);
+                r = new Spell(SpellSlot.R, 20000);
+
+                Game.PrintChat("TenageAshe[1]: Spells created");
+
+                w.SetSkillshot(0.25f, (float)(6.0 * 9.58 * Math.PI / 180.0), 1500.0f, true, SkillshotType.SkillshotCone);
+                r.SetSkillshot(0.25f, 250.0f, 1600.0f, false, SkillshotType.SkillshotLine);
+
+                Game.PrintChat("TenageAshe[2]: Spells W and R skillshots defined");
+
+                SpellArray[0] = q;
+                SpellArray[1] = w;
+                SpellArray[2] = e;
+                SpellArray[3] = r;
+
+                Game.PrintChat("TenageAshe[3]: All 4 spells added to the SpellArray");
+
+                //the last valee determine if this is a root menu
+                config = new Menu("Teenage Ashe", "TeenAshe", true);
+                Game.PrintChat("TenageAshe[4]: Main Menu of the Mod created");
+
+                //Adds a submenu named Orbwalker
+                config.AddSubMenu(new Menu("Orbwalker", "Orbwalker"));
+
+                Game.PrintChat("TenageAshe[5]: Empty Orbwalker SubMenu created and added to Main Menu");
+
+                //initializes the orbwalker and add it to the previously created Menu Orbwalker
+                orbwalker = new Orbwalking.Orbwalker(config.SubMenu("Orbwalker"));
+
+                Game.PrintChat("TenageAshe[6]: Orbwalker initialized and used to fill up Orbwalker Menu");
+
+
+                config.AddSubMenu(new Menu("Combo", "Combo"));
+                Game.PrintChat("TenageAshe[7]: Empty Combo SubMenu created");
+                //Game.PrintChat("Finn has a new love: teenage Princess Ashe!");
+
+                //adds toggable MenuItems to the submenu "Combo". The SetValue method sets the default value for those MenuItems
+                config.SubMenu("Combo").AddItem(new MenuItem("UseQCombo", "Use Q").SetValue(true)).ValueChanged += onComboSpellValueChanged;
+                config.SubMenu("Combo").AddItem(new MenuItem("UseWCombo", "Use W").SetValue(true)).ValueChanged += onComboSpellValueChanged;
+                config.SubMenu("Combo").AddItem(new MenuItem("UseRCombo", "Use R").SetValue(true)).ValueChanged += onComboSpellValueChanged;
+                config.SubMenu("Combo").AddItem(new MenuItem("UseICombo", "Use Items").SetValue(true));
+
+                Game.PrintChat("TenageAshe[8]: Submenu Combo filled up with skills to use");
+
+                //continue to define the submenu Combo, adds another MenuItem, this one activates on KeyPress 
+                config.SubMenu("Combo").AddItem(new MenuItem("ComboActive", "Combo!").SetValue(new KeyBind(32, KeyBindType.Press)));
+
+                Game.PrintChat("TenageAshe[9]: MenuItem ComboActive added to Menu Combo");
+
+                //defining the Harass submenu. Note that you may want to remove a few MenuItems from there!
+                config.AddSubMenu(new Menu("Harass", "Harass"));
+                config.SubMenu("Harass").AddItem(new MenuItem("UseWHarass", "Use W").SetValue(true));
+
+                //those are the two modes: harass on keypress, and toggable harass
+                config.SubMenu("Harass").AddItem(new MenuItem("HarassPress", "Harass!").SetValue(new KeyBind("A".ToCharArray()[0], KeyBindType.Press)));
+                config.SubMenu("Harass").AddItem(new MenuItem("HarassToggle", "Harass (toggle)!").SetValue(new KeyBind("Y".ToCharArray()[0], KeyBindType.Toggle)));
+
+                config.AddSubMenu(new Menu("Killsteal", "Killsteal"));
+                config.SubMenu("Killsteal").AddItem(new MenuItem("UseWKS", "Use W to KS").SetValue(true)).ValueChanged += onKsSpellValueChanged;
+                config.SubMenu("Killsteal").AddItem(new MenuItem("UseRKS", "Use R to KS").SetValue(true)).ValueChanged += onKsSpellValueChanged;
+                config.SubMenu("Killsteal").AddItem(new MenuItem("ShouldKS", "Should KS").SetValue(true)).ValueChanged += onKsSpellValueChanged;
+
+                //defining the drawings submenu. Again, you may want to remove some of the MenuItems in case they make no sense
+                config.AddSubMenu(new Menu("Drawings", "Drawings"));
+                config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(true, Color.White)));
+                config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.White)));
+                config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, Color.White)));
+
+
+                Menu targetSelectorMenu = new Menu("Target Selector", "Target Selector");
+                SimpleTs.AddToMenu(targetSelectorMenu);
+                Config.AddSubMenu(targetSelectorMenu);
+
+                Game.PrintChat("Message 10");
+                //this step adds the menu of our mod to the main L# menu
+                config.AddToMainMenu();
+
+                Game.PrintChat("Message 11");
+
+                Drawing.OnDraw += onDraw;
+                Game.OnGameUpdate += onGameUpdate;
+                Orbwalking.AfterAttack += onAfterAttack;
+                Orbwalking.BeforeAttack += onBeforeAttack;
+
+                Game.PrintChat("Finish");
             }
-
-            player = ObjectManager.Player;
-
-            Game.PrintChat("Message 1");
-            //set ranges
-            q = new Spell(SpellSlot.Q);
-            w = new Spell(SpellSlot.W, 1200);
-            e = new Spell(SpellSlot.E);
-            r = new Spell(SpellSlot.R, 20000);
-            Game.PrintChat("Message 2");
-            w.SetSkillshot(0.25f, (float)(6.0 * 9.58 * Math.PI / 180.0), 1500.0f, true, SkillshotType.SkillshotCone);
-            r.SetSkillshot(0.25f, 250.0f, 1600.0f, false, SkillshotType.SkillshotLine);
-            Game.PrintChat("Message 3");
-            SpellArray[0] = q;
-            SpellArray[1] = w;
-            SpellArray[2] = e;
-            SpellArray[3] = r;
-            Game.PrintChat("Message 4");
-            //the last valee determine if this is a root menu
-            config = new Menu("Teenage Ashe", "TeenAshe", true);
-            Game.PrintChat("Message 5");
-            //config.AddSubMenu(new Menu("Orbwalking", "Orbwalking"));
-            Game.PrintChat("Message 6");
-            var orbwalkerMenu = new Menu("Orbwalking", "Orbwalking");
-            orbwalker = new Orbwalking.Orbwalker(orbwalkerMenu);
-            config.AddSubMenu(orbwalkerMenu);
-            //orbwalker = new Orbwalking.Orbwalker(config.SubMenu("Orbwalking"));
-            Game.PrintChat("Message 7");
-            config.AddSubMenu(new Menu("Combo", "Combo"));
-            Game.PrintChat("Message 8");
-            //Game.PrintChat("Finn has a new love: teenage Princess Ashe!");
-
-            //adds toggable MenuItems to the submenu "Combo". The SetValue method sets the default value for those MenuItems
-            config.SubMenu("Combo").AddItem(new MenuItem("UseQCombo", "Use Q").SetValue(true)).ValueChanged += onComboSpellValueChanged;
-            config.SubMenu("Combo").AddItem(new MenuItem("UseWCombo", "Use W").SetValue(true)).ValueChanged += onComboSpellValueChanged;
-            config.SubMenu("Combo").AddItem(new MenuItem("UseRCombo", "Use R").SetValue(true)).ValueChanged += onComboSpellValueChanged;
-            config.SubMenu("Combo").AddItem(new MenuItem("UseICombo", "Use Items").SetValue(true));
-
-            Game.PrintChat("Message 9");
-
-            //continue to define the submenu Combo, adds another MenuItem, this one activates on KeyPress 
-            config.SubMenu("Combo").AddItem(new MenuItem("ComboActive", "Combo!").SetValue(new KeyBind(32, KeyBindType.Press)));
-
-            //defining the Harass submenu. Note that you may want to remove a few MenuItems from there!
-            config.AddSubMenu(new Menu("Harass", "Harass"));
-            config.SubMenu("Harass").AddItem(new MenuItem("UseWHarass", "Use W").SetValue(true));
-
-            //those are the two modes: harass on keypress, and toggable harass
-            config.SubMenu("Harass").AddItem(new MenuItem("HarassPress", "Harass!").SetValue(new KeyBind("A".ToCharArray()[0], KeyBindType.Press)));
-            config.SubMenu("Harass").AddItem(new MenuItem("HarassToggle", "Harass (toggle)!").SetValue(new KeyBind("Y".ToCharArray()[0], KeyBindType.Toggle)));
-
-            config.AddSubMenu(new Menu("Killsteal", "Killsteal"));
-            config.SubMenu("Killsteal").AddItem(new MenuItem("UseWKS", "Use W to KS").SetValue(true)).ValueChanged += onKsSpellValueChanged;
-            config.SubMenu("Killsteal").AddItem(new MenuItem("UseRKS", "Use R to KS").SetValue(true)).ValueChanged += onKsSpellValueChanged;
-            config.SubMenu("Killsteal").AddItem(new MenuItem("ShouldKS", "Should KS").SetValue(true)).ValueChanged += onKsSpellValueChanged;
-
-            //defining the drawings submenu. Again, you may want to remove some of the MenuItems in case they make no sense
-            config.AddSubMenu(new Menu("Drawings", "Drawings"));
-            config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(true, Color.White)));
-            config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, Color.White)));
-            config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, Color.White)));
-
-
-            var ts = new Menu("Target Selector", "Target Selector");
-            SimpleTs.AddToMenu(ts);
-            config.AddSubMenu(ts);
-
-            Game.PrintChat("Message 10");
-            //this step adds the menu of our mod to the main L# menu
-            config.AddToMainMenu();
-            Game.PrintChat("Message 11");
-            Drawing.OnDraw += onDraw;
-            Game.OnGameUpdate += onGameUpdate;
-            Orbwalking.AfterAttack += onAfterAttack;
-            Orbwalking.BeforeAttack += onBeforeAttack;
-
-            Game.PrintChat("Finish");
+            catch(Object ex)
+            {
+                Game.PrintChat("An Exception has ocurred: ");
+            }
         }
 
         private static void onBeforeAttack(Orbwalking.BeforeAttackEventArgs args)
