@@ -135,7 +135,7 @@ namespace TeenageAshe
 
                 Game.PrintChat("Finish");
             }
-            catch(Object ex)
+            catch(Exception ex)
             {
                 Game.PrintChat("An Exception has ocurred: ");
             }
