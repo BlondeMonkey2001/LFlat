@@ -138,6 +138,7 @@ namespace TeenageAshe
             catch(Exception ex)
             {
                 Game.PrintChat("An Exception has ocurred: ");
+                Game.PrintChat(ex.Message);
             }
         }
 
