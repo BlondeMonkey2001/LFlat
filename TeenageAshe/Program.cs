@@ -80,7 +80,6 @@ namespace TeenageAshe
 
                 Console.WriteLine("TenageAshe[6]: Orbwalker initialized and used to fill up Orbwalker Menu");
 
-
                 config.AddSubMenu(new Menu("Combo", "Combo"));
                 Console.WriteLine("TenageAshe[7]: Empty Combo SubMenu created");
                 //Console.WriteLine("Finn has a new love: teenage Princess Ashe!");
