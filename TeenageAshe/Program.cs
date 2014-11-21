@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using LeagueSharp;
 using LeagueSharp.Common;
+using ToggableOrbwalker;
 
 #endregion
 
@@ -17,7 +18,7 @@ namespace TeenageAshe
         private static readonly Spell[] SpellArray = new Spell[4];
 
         private static Obj_AI_Hero player;
-        private static Orbwalking.Orbwalker orbwalker;
+        private static TOrbwalking.TOrbwalker orbwalker;
         private static Spell q, w, e, r;
         private static Menu config;
 
@@ -44,7 +45,7 @@ namespace TeenageAshe
 
                 player = ObjectManager.Player;
 
-                Console.WriteLine("TenageAshe[0]: Loading started");
+                //Console.WriteLine("TenageAshe[0]: Loading started");
 
                 //set ranges
                 q = new Spell(SpellSlot.Q);
@@ -52,19 +53,19 @@ namespace TeenageAshe
                 e = new Spell(SpellSlot.E);
                 r = new Spell(SpellSlot.R, 20000);
 
-                Console.WriteLine("TenageAshe[1]: Spells created");
+                //Console.WriteLine("TenageAshe[1]: Spells created");
 
                 w.SetSkillshot(0.25f, (float)(6.0 * 9.58 * Math.PI / 180.0), 1500.0f, true, SkillshotType.SkillshotCone);
                 r.SetSkillshot(0.25f, 250.0f, 1600.0f, false, SkillshotType.SkillshotLine);
 
-                Console.WriteLine("TenageAshe[2]: Spells W and R skillshots defined");
+                //Console.WriteLine("TenageAshe[2]: Spells W and R skillshots defined");
 
                 SpellArray[0] = q;
                 SpellArray[1] = w;
                 SpellArray[2] = e;
                 SpellArray[3] = r;
 
-                Console.WriteLine("TenageAshe[3]: All 4 spells added to the SpellArray");
+                //Console.WriteLine("TenageAshe[3]: All 4 spells added to the SpellArray");
 
                 //the last valee determine if this is a root menu
                 config = new Menu("Teenage Ashe", "TeenAshe", true);
@@ -73,16 +74,16 @@ namespace TeenageAshe
                 //Adds a submenu named Orbwalker
                 config.AddSubMenu(new Menu("Orbwalker", "Orbwalker"));
 
-                Console.WriteLine("TenageAshe[5]: Empty Orbwalker SubMenu created and added to Main Menu");
+                //Console.WriteLine("TenageAshe[5]: Empty Orbwalker SubMenu created and added to Main Menu");
 
                 //initializes the orbwalker and add it to the previously created Menu Orbwalker
-                orbwalker = new Orbwalking.Orbwalker(config.SubMenu("Orbwalker"));
+                orbwalker = new TOrbwalking.TOrbwalker(config.SubMenu("Orbwalker"));
 
-                Console.WriteLine("TenageAshe[6]: Orbwalker initialized and used to fill up Orbwalker Menu");
+                //Console.WriteLine("TenageAshe[6]: Orbwalker initialized and used to fill up Orbwalker Menu");
 
                 config.AddSubMenu(new Menu("Combo", "Combo"));
-                Console.WriteLine("TenageAshe[7]: Empty Combo SubMenu created");
-                //Console.WriteLine("Finn has a new love: teenage Princess Ashe!");
+                //Console.WriteLine("TenageAshe[7]: Empty Combo SubMenu created");
+                
 
                 //adds toggable MenuItems to the submenu "Combo". The SetValue method sets the default value for those MenuItems
                 config.SubMenu("Combo").AddItem(new MenuItem("UseQCombo", "Use Q").SetValue(true)).ValueChanged += onComboSpellValueChanged;
@@ -90,12 +91,12 @@ namespace TeenageAshe
                 config.SubMenu("Combo").AddItem(new MenuItem("UseRCombo", "Use R").SetValue(true)).ValueChanged += onComboSpellValueChanged;
                 config.SubMenu("Combo").AddItem(new MenuItem("UseICombo", "Use Items").SetValue(true));
 
-                Console.WriteLine("TenageAshe[8]: Submenu Combo filled up with skills to use");
+                //Console.WriteLine("TenageAshe[8]: Submenu Combo filled up with skills to use");
 
                 //continue to define the submenu Combo, adds another MenuItem, this one activates on KeyPress 
                 config.SubMenu("Combo").AddItem(new MenuItem("ComboActive", "Combo!").SetValue(new KeyBind(32, KeyBindType.Press)));
 
-                Console.WriteLine("TenageAshe[9]: MenuItem ComboActive added to Menu Combo");
+                //Console.WriteLine("TenageAshe[9]: MenuItem ComboActive added to Menu Combo");
 
                 //defining the Harass submenu. Note that you may want to remove a few MenuItems from there!
                 config.AddSubMenu(new Menu("Harass", "Harass"));
@@ -121,18 +122,18 @@ namespace TeenageAshe
                 SimpleTs.AddToMenu(targetSelectorMenu);
                 config.AddSubMenu(targetSelectorMenu);
 
-                Console.WriteLine("Message 10");
+                //Console.WriteLine("Message 10");
                 //this step adds the menu of our mod to the main L# menu
                 config.AddToMainMenu();
 
-                Console.WriteLine("Message 11");
+                //Console.WriteLine("Message 11");
 
                 Drawing.OnDraw += onDraw;
                 Game.OnGameUpdate += onGameUpdate;
                 Orbwalking.AfterAttack += onAfterAttack;
                 Orbwalking.BeforeAttack += onBeforeAttack;
 
-                Console.WriteLine("Finish");
+                Game.PrintChat("Finn has a new love: teenage Princess Ashe!");
             }
             catch(Exception ex)
             {
@@ -154,7 +155,8 @@ namespace TeenageAshe
             }
             else
             {
-                q.Cast();
+                if (isQActive)
+                    q.Cast();
             }
         }
 
@@ -219,7 +221,8 @@ namespace TeenageAshe
 
         private static void onAfterAttack(Obj_AI_Base unit, Obj_AI_Base target)
         {
-            //don't know what to do here yet
+            if(isQActive)
+                q.Cast();
         }
 
         private static void doHarass()

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeenageAshe", "QueenAshe\TeenageAshe.csproj", "{29D71ACC-DEA9-4E35-8A10-3E35964A16BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeenageAshe", "TeenageAshe\TeenageAshe.csproj", "{29D71ACC-DEA9-4E35-8A10-3E35964A16BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToggableOrbwalker", "ToggableOrbwalker\ToggableOrbwalker.csproj", "{CE779A00-3245-4FF3-A97B-F579DDF45C23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{29D71ACC-DEA9-4E35-8A10-3E35964A16BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29D71ACC-DEA9-4E35-8A10-3E35964A16BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29D71ACC-DEA9-4E35-8A10-3E35964A16BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE779A00-3245-4FF3-A97B-F579DDF45C23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE779A00-3245-4FF3-A97B-F579DDF45C23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE779A00-3245-4FF3-A97B-F579DDF45C23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE779A00-3245-4FF3-A97B-F579DDF45C23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -115,6 +115,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToggableOrbwalker\ToggableOrbwalker.csproj">
+      <Project>{ce779a00-3245-4ff3-a97b-f579ddf45c23}</Project>
+      <Name>ToggableOrbwalker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
